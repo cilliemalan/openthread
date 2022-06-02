@@ -685,6 +685,12 @@ Message *Message::Clone(uint16_t aLength) const
     messageCopy->SetTimeSync(IsTimeSync());
 #endif
 
+    // Copy RSSI information
+    if (GetRssAverager().HasAverage())
+    {
+        messageCopy->GetMetadata().mRssAverager = GetMetadata().mRssAverager;
+    }
+
 exit:
     FreeAndNullMessageOnError(messageCopy, error);
     return messageCopy;
